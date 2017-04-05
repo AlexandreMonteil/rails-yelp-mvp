@@ -1,0 +1,74 @@
+<div class="container">
+  <h1><%=@restaurant.name%></h1>
+  <h2>Moyenne:  <%= moyenne(@restaurant) %></h2>
+
+  <p>
+    <strong>Name:</strong>
+    <%= @restaurant.name %>
+  </p>
+
+  <p>
+    <strong>Address:</strong>
+    <%= @restaurant.address %>
+  </p>
+
+  <p>
+    <strong>Category:</strong>
+    <%= @restaurant.category %>
+  </p>
+
+  <%= link_to 'Back', restaurants_path, class:"btn btn-success"%>
+  <%= link_to 'Add a review', new_restaurant_review_path(@restaurant), class:"btn btn-success" %>
+
+  <h3>Commentaires</h3>
+  <table class ="table table-striped">
+   <thead>
+     <tr>
+       <th>
+         Commentaire
+       </th>
+       <th>
+         Note
+       </th>
+     </tr>
+   </thead>
+    <tbody>
+      <%  @restaurant.reviews.each do |review| %>
+        <tr>
+          <td>
+            <%= review.content %>
+          </td>
+          <td>
+            <%= review.rating %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<div class="container">
+<h3>Add a review </h3>
+<%= simple_form_for([@restaurant, @review]) do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <%= f.input :content %>
+    <div class="hidden">
+    <%= f.input :rating%>
+    </div>
+    <ul class="list-inline">
+    <li id="0" class="rating">0</li>
+    <li id="1" class="rating">1</li>
+    <li id="2" class="rating">2</li>
+    <li id="3" class="rating">3</li>
+    <li id="4" class="rating">4</li>
+    <li id="5" class="rating">5</li>
+    </ul>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+</div>
+
+</div>
